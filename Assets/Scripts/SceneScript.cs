@@ -10,13 +10,17 @@ public class SceneScript : MonoBehaviour
         SceneManager.LoadScene("Level 1");
     }
 
-    public void About()
+    public void Menu()
     {
-        SceneManager.LoadScene("About");
+        SceneManager.LoadScene("menu");
+    }
+    public void Tutorial(){
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void Exit()
     {
         Application.Quit();
     }
+    
 }
