@@ -2634,6 +2634,7 @@ GameObject:
   - component: {fileID: 5222740940227350442}
   - component: {fileID: 5269945356299628304}
   - component: {fileID: 2823229316206413801}
+  - component: {fileID: 5286307982631141535}
   m_Layer: 0
   m_Name: First Person Controller Minimal
   m_TagString: Player
@@ -2806,6 +2807,19 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &5286307982631141535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241267464909508236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f824e5712c28eb44ebc1687b8b3cee75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 3
 --- !u!81 &5304019295698813494
 AudioListener:
   m_ObjectHideFlags: 0
