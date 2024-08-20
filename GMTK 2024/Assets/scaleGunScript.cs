@@ -9,6 +9,7 @@ public class scaleGunScript : MonoBehaviour
     [SerializeField] float delay;
     [SerializeField] Transform rayStartPos;
     private float timer;
+    private float visualTimer;
     [Header("Transform Peramaters")]
     [SerializeField] float transformSpeed;
 
@@ -21,6 +22,8 @@ public class scaleGunScript : MonoBehaviour
     [Header("Ray Peramaters")]
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] float visualLength;
+
+    [SerializeField] float visualDurration;
 
     private bool isHolding;
     private bool isShooting;
@@ -37,33 +40,36 @@ public class scaleGunScript : MonoBehaviour
         if (timer <= delay){
             timer += Time.deltaTime;
         }
-        if (timer > delay && (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))){
+        else if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)){
             growing = Input.GetMouseButtonDown(0);
-            print("On");
             isShooting = true;
             lineRenderer.enabled = true;
+            visualTimer = 0;
+            timer = 0;
         }
-        if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)){
-            print("off");
-            isShooting = false;
+        if (visualTimer > visualDurration){
             lineRenderer.enabled = false;
         }
-        if (isShooting){
+        else if (visualTimer <= visualDurration){
+            visualTimer += Time.deltaTime;
+
             if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out RaycastHit hit, Mathf.Infinity, transformableMask)){
                 lineRenderer.SetPositions(new Vector3[2] {rayStartPos.position, hit.point});
                 TransformScript transformScript = hit.transform.gameObject.GetComponent<TransformScript>();
-                if (transformScript != null){
+                if (transformScript != null && isShooting){
                     if (growing){
-                        transformScript.Grow(transformSpeed * Time.deltaTime);
+                        transformScript.Grow(transformSpeed);
+                        isShooting = false;
                     }
                     else{
-                        transformScript.Shrink(transformSpeed * Time.deltaTime);
+                        transformScript.Shrink(transformSpeed);
+                        isShooting = false;
                     }
                 }
             }
             else{
                 lineRenderer.SetPositions(new Vector3[2] {rayStartPos.position, cameraTransform.position + cameraTransform.forward * visualLength});
-            }            
+            }  
         }
     }
 }
